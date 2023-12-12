@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  db:
+    image: mongo:7.0-jammy
+    restart: always
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${DB_ADMIN_NAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${DB_ADMIN_PASSWORD}
+      - MONGO_INITDB_DATABASE=${DB_NAME}
+      - DB_USERNAME
+      - DB_PASSWORD
+      - DB_NAME
+
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongo mongo:27017/test --quiet
+      interval: 5m
+      timeout: 20s
+      retries: 3
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/database:/data/db
+      - ./database/initdb.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
