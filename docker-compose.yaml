@@ -18,7 +18,24 @@ services:
       timeout: 20s
       retries: 3
     ports:
-      - 27017:27017
+      - ${DB_PORT}:27017
     volumes:
       - ./data/database:/data/db
       - ./database/initdb.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
+  cms:
+    build:
+      context: ./cms
+    environment:
+      - DB_NAME
+      - DB_USERNAME
+      - DB_PASSWORD
+      - DB_HOST=db
+      - DB_PORT
+      - PORT=${CMS_PORT}
+      - PAYLOAD_SECRET=${CMS_SECRET}
+    ports:
+      - ${CMS_PORT}:${CMS_PORT}
+    volumes:
+      - ./data/cms:/home/node/app/media
+    depends_on:
+      - db
