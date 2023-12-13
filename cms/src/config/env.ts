@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const env = process.env ?? {};
+const env = typeof window === "undefined" ? process.env : {};
 
 const DB_NAME = env.DB_NAME;
 const DB_USERNAME = env.DB_USERNAME;
