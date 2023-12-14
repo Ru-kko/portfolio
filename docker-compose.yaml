@@ -13,10 +13,11 @@ services:
       - DB_NAME
 
     healthcheck:
-      test: echo 'db.runCommand("ping").ok' | mongo mongo:27017/test --quiet
-      interval: 5m
-      timeout: 20s
+      test: mongosh --eval 'db.runCommand("ping").ok' db:${DB_PORT}/${DB_NAME}t --quiet
+      interval: 40s
+      timeout: 10s
       retries: 3
+      start_period: 1m
     ports:
       - ${DB_PORT}:27017
     volumes:
@@ -38,4 +39,5 @@ services:
     volumes:
       - ./data/cms:/home/node/app/media
     depends_on:
-      - db
+      db:
+        condition: service_healthy
