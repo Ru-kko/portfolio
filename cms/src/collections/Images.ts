@@ -5,6 +5,9 @@ const Images: CollectionConfig = {
   admin: {
     useAsTitle: "name",
   },
+  access: {
+    read: () => true,
+  },
   upload: {
     staticURL: "/static/img",
     staticDir: "/media/img/",

@@ -5,6 +5,9 @@ const Education: CollectionConfig = {
   admin: {
     useAsTitle: "name",
   },
+  access: {
+    read: () => true,
+  },
   fields: [
     {
       name: "title",
@@ -42,14 +45,14 @@ const Education: CollectionConfig = {
         },
         {
           label: "Degree",
-          value: "degree"
+          value: "degree",
         },
         {
           label: "Course",
-          value: "course"
-        }
-      ]
-    }
+          value: "course",
+        },
+      ],
+    },
   ],
 };
 
