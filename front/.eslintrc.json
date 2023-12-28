@@ -1,0 +1,19 @@
+{
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "next/core-web-vitals",
+    "semistandard"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "rules": {
+    "quotes": ["error", "double"],
+    "comma-dangle": ["error", "only-multiline"],
+    "space-before-function-paren": ["error", {
+      "asyncArrow": "always",
+      "anonymous": "never",
+      "named": "never"
+    }],
+    "@typescript-eslint/no-unused-vars": ["error"]
+  }
+}
