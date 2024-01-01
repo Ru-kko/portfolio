@@ -1,4 +1,4 @@
-import { postMessage } from "@/lib/graphql";
+import { getApiService } from "@/services";
 import { MessageRequestArgs } from "@/types/Message";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -37,7 +37,8 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  const gres = await postMessage({ msg: body }).catch((e: Error) => e);
+  const gres = await getApiService().sendMessage(body).catch((e: Error) => e);
+
   if (!gres || gres instanceof Error) {
     console.error(gres);
     return NextResponse.json(
