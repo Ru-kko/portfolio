@@ -1,37 +1,62 @@
 "use client";
-import { FormEventHandler, useEffect, useRef, useState } from "react";
+import { FormEventHandler, useEffect, useState } from "react";
 import styles from "./Contact.module.css";
 import { extendsClassName } from "@/utils/client";
 import { Container } from "@/components";
+import { MessageRequestArgs } from "@/types";
 
 export default function Contact() {
-  const [error, setError] = useState<string | undefined>(undefined);
+  const [popupMsg, setPopupMsg] = useState<{title: string, content: string} | undefined>(undefined);
   const [timeOut, setTime] = useState<ReturnType<typeof setTimeout>| undefined>();
-  const form = useRef<HTMLFormElement>(null);
 
-  const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+  const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
+    const form = new FormData(e.currentTarget);
+    const requestData: Partial<MessageRequestArgs> = {
+      title: form.get("title"),
+      content: form.get("content"),
+      email: form.get("email"),
+    };
 
-    console.log("Unimplemented");
+    const res = await fetch("/api/message", {
+      method: "POST",
+      body: JSON.stringify(requestData),
+      credentials: "same-origin",
+    }).catch((e: Error) => e);
+
+    if (res instanceof Error || res.status !== 200) {
+      const data = await res.json();
+
+      setPopupMsg({
+        title: "❌ Error",
+        content: data.message
+      });
+      return;
+    }
+
+    setPopupMsg({
+      title: "✔️  Sended",
+      content: "I will respond as soon as possible"
+    });
   };
 
   useEffect(() => {
-    if (error) {
+    if (popupMsg) {
       clearTimeout(timeOut);
       setTime(setTimeout(() => {
-        setError(undefined);
+        setPopupMsg(undefined);
       }, 3000));
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [error]);
+  }, [popupMsg]);
 
   return (
     <>
-      {error
+      {popupMsg
         ? (
           <Container className={extendsClassName(styles.float)}>
-            <h3>❌ Error</h3>
-            <p>{error}</p>
+            <h3>{popupMsg.title}</h3>
+            <p>{popupMsg.content}</p>
           </Container>
           )
         : ""
@@ -39,7 +64,6 @@ export default function Contact() {
       <form
         className={styles.contact_form}
         onSubmit={handleSubmit}
-        ref={form}
       >
         <label invalid-txt="A title is nedded">
           <input type="text" required placeholder=" " name="title"/>
