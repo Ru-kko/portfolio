@@ -1,4 +1,3 @@
-export interface id  {id: string}
+export interface id {id: string}
 
 export * from "./Message";
-

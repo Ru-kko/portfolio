@@ -15,6 +15,6 @@ export const postMessage: QueryFunction<
   { msg: MessageRequestArgs }
 > = async ({ msg }) => {
   const res = await client
-    .mutate<id>({ mutation: POST_MESSAGE, variables: { msg } })
+    .mutate<id>({ mutation: POST_MESSAGE, variables: { msg } });
   return res.data;
 };
