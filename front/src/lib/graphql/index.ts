@@ -6,6 +6,10 @@ export const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+export type gqlResponse<S extends string, T> = {
+  [slug in S]: T;
+}
+
 export type QueryFunction<R, A = undefined> = (
   args: A
 ) => Promise<R | null | undefined>;

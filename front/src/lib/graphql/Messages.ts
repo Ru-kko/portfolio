@@ -1,5 +1,5 @@
 import { gql } from "@apollo/client";
-import { QueryFunction, client } from ".";
+import { QueryFunction, client, gqlResponse } from ".";
 import { MessageRequestArgs, id } from "@/types";
 
 const POST_MESSAGE = gql(`
@@ -15,6 +15,6 @@ export const postMessage: QueryFunction<
   { msg: MessageRequestArgs }
 > = async ({ msg }) => {
   const res = await client
-    .mutate<id>({ mutation: POST_MESSAGE, variables: { msg } });
-  return res.data;
+    .mutate<gqlResponse<"createMessage", id>>({ mutation: POST_MESSAGE, variables: { msg } });
+  return res.data?.createMessage;
 };
