@@ -106,4 +106,8 @@ h4 {
   .main-cont {
     display: block;
   }
+
+.main-cont div:has(+ .content-focus) {
+    transform: scaleY(0);
+  }
 }
