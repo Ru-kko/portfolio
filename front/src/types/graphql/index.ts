@@ -5,5 +5,6 @@ export type gqlResponse<S extends string, T> = {
 export interface gqlListResponse<T> {
   docs: T[];
   page: number;
-  totalPages: number | null;
+  totalPages: number;
+  prevPage: number | null;
 }
