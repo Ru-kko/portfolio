@@ -11,3 +11,4 @@ export type QueryFunction<R, A = undefined> = (
 ) => Promise<R | null | undefined>;
 
 export * from "./Messages";
+export * from "./Education";

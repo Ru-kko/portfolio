@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { QueryFunction, client } from ".";
-import { gqlListResponse, gqlResponse } from "@/types/graphql";
-import { EducationBase } from "@/types/Education";
+import { gqlResponse } from "@/types/graphql";
+import { EducationBase, ListResponse } from "@/types";
 
 const GET_EDUCATION_LIST = gql(`
   query Educations {
@@ -20,11 +20,11 @@ const GET_EDUCATION_LIST = gql(`
 `);
 
 export const getEducationList: QueryFunction<
-  gqlListResponse<EducationBase>,
+  ListResponse<EducationBase>,
   { page?: number }
 > = async ({ page }) => {
   const res = await client.query<
-    gqlResponse<"Educations", gqlListResponse<EducationBase>>
+    gqlResponse<"Educations", ListResponse<EducationBase>>
   >({ query: GET_EDUCATION_LIST, variables: { page: page ?? 1 } });
 
   return res.data.Educations;
