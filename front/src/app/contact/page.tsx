@@ -13,9 +13,9 @@ export default function Contact() {
     e.preventDefault();
     const form = new FormData(e.currentTarget);
     const requestData: Partial<MessageRequestArgs> = {
-      title: form.get("title"),
-      content: form.get("content"),
-      email: form.get("email"),
+      title: form.get("title") as string,
+      content: form.get("content") as string,
+      email: form.get("email") as string,
     };
 
     const res = await fetch("/api/message", {
@@ -24,7 +24,14 @@ export default function Contact() {
       credentials: "same-origin",
     }).catch((e: Error) => e);
 
-    if (res instanceof Error || res.status !== 200) {
+    if (res instanceof Error) {
+      setPopupMsg({
+        title: "❌ Error",
+        content: res.message
+      });
+      return;
+    }
+    if (res.status !== 200) {
       const data = await res.json();
 
       setPopupMsg({
