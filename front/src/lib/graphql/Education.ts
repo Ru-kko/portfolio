@@ -4,7 +4,7 @@ import { gqlResponse } from "@/types/graphql";
 import { EducationBase, ListResponse } from "@/types";
 
 const GET_EDUCATION_LIST = gql(`
-  query Educations {
+  query Educations($page: Int) {
     Educations(page: $page) {
       docs {
         id
