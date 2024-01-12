@@ -1,10 +1,6 @@
 import { id } from ".";
 
-export const enum EducationType {
-  certificate = "certificate",
-  degree = "degree",
-  course = "course"
-}
+export type EducationType = "certificate" | "degree" | "course";
 
 export interface EducationBase extends id {
   title: string;
