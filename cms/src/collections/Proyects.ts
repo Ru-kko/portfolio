@@ -1,4 +1,3 @@
-import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { CollectionConfig } from "payload/types";
 
 const urlRegex = /^(http(s):\/\/.)[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)$/
@@ -19,7 +18,6 @@ const Proyects: CollectionConfig = {
     {
       name: "description",
       type: "richText",
-      editor: lexicalEditor({}),
     },
     {
       name: "Repository",
