@@ -22,6 +22,7 @@ const Messagges: CollectionConfig = {
     {
       name: 'email',
       type: 'text',
+      unique: false,
       validate: (val: string) => {
         if (emailRegex.test(val))
           return true;
