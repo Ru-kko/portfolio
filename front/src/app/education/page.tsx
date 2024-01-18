@@ -1,5 +1,9 @@
-import Link from "next/link";
+import { List } from "@/components";
+import { EducationItem } from "@/components/List/items";
+import { getApiService } from "@/services";
 
-export default function EducationPage() {
-  return <>Education Page <Link href={"/education/1223"}>Foo</Link></>;
+export default async function EducationPage() {
+  const initial = await getApiService().getShortEducation();
+
+  return <List Component={EducationItem} initialData={initial} />;
 }
