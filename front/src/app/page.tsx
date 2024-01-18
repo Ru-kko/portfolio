@@ -4,6 +4,9 @@ import styles from "./page.module.css";
 
 export default function Home() {
   const bornDate = new Date(2003, 1, 8);
+  const today = new Date();
+
+  const diff = today.getTime() - bornDate.getTime();
 
   return (
     <div className={styles.home_page}>
@@ -15,7 +18,7 @@ export default function Home() {
           <span>Born Date:</span>
           <p>
             {bornDate.toLocaleDateString() + " "}(
-            {new Date().getFullYear() - bornDate.getFullYear()})
+            {Math.floor(diff / (1000 * 3600 * 24 * 365))})
           </p>
         </div>
         <div className={styles.rowdata}>
