@@ -24,7 +24,8 @@ export type ProyectStack =
   | "nginx"
   | "JWT"
   | "android"
-  | "linux";
+  | "linux"
+  | "mongo";
 
 export interface ProyectBase extends id {
   name: string;
