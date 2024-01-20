@@ -1,11 +1,3 @@
-.link {
-  color: var(--white);
-}
-
-.link:hover {
-  color: var(--gray-01);
-}
-
 .subtitle {
   display: flex;
   flex-flow: row nowrap;
