@@ -132,6 +132,10 @@ const Proyects: CollectionConfig = {
           label: "Linux",
           value: "linux",
         },
+        {
+          label: "MongoDB",
+          value: "mongo",
+        },
       ],
     },
   ],
