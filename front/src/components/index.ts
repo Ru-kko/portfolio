@@ -8,3 +8,4 @@ export * from "./svg";
 export * from "./LogCode";
 export * from "./Decoration";
 export * from "./IconChip";
+export * from "./RichText";
