@@ -1,7 +1,12 @@
 import { ListResponse, MessageRequestArgs, ProyectBase, id } from "@/types";
 import { ApiService } from "..";
-import { getEducationList, getProtyectsList, postMessage } from "@/lib/graphql";
-import { EducationBase } from "@/types/Education";
+import {
+  getEducationList,
+  getFullEducation,
+  getProtyectsList,
+  postMessage,
+} from "@/lib/graphql";
+import { Education, EducationBase } from "@/types/Education";
 
 export class GraphqlApiService implements ApiService {
   private getVoidListResponse<T>(page?: number): ListResponse<T> {
@@ -11,6 +16,14 @@ export class GraphqlApiService implements ApiService {
       prevPage: page ? page - 1 : null,
       totalPages: 0,
     };
+  }
+
+  async getFullEducationInfo(id: string): Promise<Education> {
+    const res = await getFullEducation({ id });
+
+    if (res) return res;
+
+    throw new ReferenceError(`Cannot find a Education with id: ${id}`);
   }
 
   async getShortProyect(
