@@ -20,7 +20,7 @@
 }
 
 @keyframes blink {
-  form {
+  from {
     background-color: rgba(var(--dark-blue-rgb), .1);
   }
   to {
