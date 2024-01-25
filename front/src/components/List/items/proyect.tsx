@@ -2,7 +2,7 @@ import { ProyectBase } from "@/types";
 import shared from "./css/shared.module.css";
 import style from "./css/proyect.module.css";
 import Link from "next/link";
-import { IconChip } from "@/components/IconChip";
+import { IconChip } from "@/components";
 
 export function ProyectItem(props: ProyectBase) {
   return (

@@ -10,3 +10,4 @@ export interface ListResponse<T> {
 export * from "./Message";
 export * from "./Education";
 export * from "./Proyects";
+export * from "./RichText";

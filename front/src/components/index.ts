@@ -7,3 +7,4 @@ export * from "./About";
 export * from "./svg";
 export * from "./LogCode";
 export * from "./Decoration";
+export * from "./IconChip";
