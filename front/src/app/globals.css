@@ -80,7 +80,7 @@ h4 {
 
 .main-cont {
   display: grid;
-  overflow: auto;
+  overflow-y: hidden;
   grid-template-columns: repeat(2, 1fr);
   justify-items: center;
   gap: 15px;
@@ -107,7 +107,14 @@ h4 {
     display: block;
   }
 
-.main-cont div:has(+ .content-focus) {
+  .main-cont div:has(+ .content-focus) {
     transform: scaleY(0);
+    animation: hide forwards .1s;
+  }
+}
+
+@keyframes hide {
+  to {
+    display: none;
   }
 }
