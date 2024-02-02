@@ -1,4 +1,4 @@
-import { id } from ".";
+import type { id } from ".";
 
 export type ProyectStack =
   | "docker"

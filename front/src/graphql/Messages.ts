@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
-import { QueryFunction, client } from ".";
-import { MessageRequestArgs, id } from "@/types";
-import { gqlResponse } from "@/types/graphql";
+import { type QueryFunction, client } from ".";
+import type { MessageRequestArgs, id } from "@/types";
+import type { gqlResponse } from "@/types/graphql";
 
 const POST_MESSAGE = gql(`
   mutation CreateMessage($msg: mutationMessageInput!) {

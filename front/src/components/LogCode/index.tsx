@@ -1,4 +1,3 @@
-"use client";
 import { useTextChange } from "@/hooks";
 import styles from "./LogCode.module.css";
 

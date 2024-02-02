@@ -1,7 +1,7 @@
 import style from "./List.module.css";
-import { FunctionComponent, HtmlHTMLAttributes } from "react";
+import type { FunctionComponent, HtmlHTMLAttributes } from "react";
 import { extendsClassName } from "@/utils/client";
-import { ListResponse, id } from "@/types";
+import type { ListResponse, id } from "@/types";
 
 interface IProps<T> extends HtmlHTMLAttributes<HTMLUListElement> {
   // * apply if is nesesary an infinyte scroll
@@ -24,4 +24,4 @@ export function List<T extends id>({
   );
 }
 
-export * from "./listSkeleton";
+export * from "./listSkeleton.astro";

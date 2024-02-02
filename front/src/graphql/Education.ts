@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
-import { QueryFunction, client } from ".";
-import { gqlResponse } from "@/types/graphql";
-import { Education, EducationBase, ListResponse } from "@/types";
+import { type QueryFunction, client } from ".";
+import type { gqlResponse } from "@/types/graphql";
+import type { Education, EducationBase, ListResponse } from "@/types";
 
 const GET_EDUCATION_LIST = gql(`
   query Educations($page: Int) {

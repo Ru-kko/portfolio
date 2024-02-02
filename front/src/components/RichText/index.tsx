@@ -1,7 +1,6 @@
-import { TextNode } from "@/types/RichText";
-import { createElement, JSX } from "react";
+import type { TextNode } from "@/types/RichText";
+import { createElement } from "react";
 import styles from "./RichText.module.css";
-import Link from "next/link";
 import { extendsClassName } from "@/utils/client";
 
 interface props {
@@ -25,9 +24,11 @@ function getClsses(
 }
 
 function BuildNode(props: TextNode): JSX.Element {
-  const children = props.children
-    ? props.children.map((v, i) => <BuildNode {...v} key={i} />)
-    : <></>;
+  const children = props.children ? (
+    props.children.map((v, i) => <BuildNode {...v} key={i} />)
+  ) : (
+    <></>
+  );
 
   if (!props.type) {
     const pStyles = getClsses(
@@ -60,13 +61,10 @@ function BuildNode(props: TextNode): JSX.Element {
       return createElement(props.type, null, children);
     case "link":
       return (
-        <Link
-          href={props.url || "#"}
-          target={props.newTab ? "_blank" : undefined}
-        >
+        <a href={props.url || "#"} target={props.newTab ? "_blank" : undefined}>
           {" "}
           {children}{" "}
-        </Link>
+        </a>
       );
   }
 }

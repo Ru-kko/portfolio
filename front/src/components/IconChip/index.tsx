@@ -1,5 +1,5 @@
-import { ProyectStack } from "@/types";
-import { FunctionComponent } from "react";
+import type { ProyectStack } from "@/types";
+import type { FunctionComponent } from "react";
 import {
   AndroidLogo,
   AngularLogo,
@@ -22,7 +22,7 @@ import {
   SpringLogo,
   SqlServerLogo,
   TypeScriptLogo,
-  classNameProp,
+  type classNameProp,
 } from "../svg";
 import styles from "./iconchip.module.css";
 

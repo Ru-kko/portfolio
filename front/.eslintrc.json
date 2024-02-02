@@ -1,19 +1,32 @@
 {
   "extends": [
     "plugin:@typescript-eslint/recommended",
-    "next/core-web-vitals",
-    "semistandard"
+    "semistandard",
+    "plugin:astro/recommended"
+  ],
+  "overrides": [
+    {
+      "files": ["*.astro"],
+      "parser": "astro-eslint-parser",
+      "parserOptions": {
+        "parser": "@typescript-eslint/parser",
+        "extraFileExtensions": [".astro"]
+      }
+    }
   ],
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
   "rules": {
     "quotes": ["error", "double"],
     "comma-dangle": ["error", "only-multiline"],
-    "space-before-function-paren": ["error", {
-      "asyncArrow": "always",
-      "anonymous": "never",
-      "named": "never"
-    }],
+    "space-before-function-paren": [
+      "error",
+      {
+        "asyncArrow": "always",
+        "anonymous": "never",
+        "named": "never"
+      }
+    ],
     "@typescript-eslint/no-unused-vars": ["error"]
   }
 }

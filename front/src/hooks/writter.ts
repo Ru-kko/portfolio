@@ -35,7 +35,8 @@ export function useTextChange(data: string[]) {
     const start = (index: number) => {
       if (!continueLoop) return;
 
-      write(data[index]).then(() => {
+      const sentence = data[index] as string;
+      write(sentence).then(() => {
         if (index < data.length - 1) {
           start(index + 1);
           return;
@@ -49,7 +50,6 @@ export function useTextChange(data: string[]) {
     return () => {
       continueLoop = false;
     };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return text;

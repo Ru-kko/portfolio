@@ -1,4 +1,4 @@
-import { HTMLAttributes, PropsWithChildren } from "react";
+import type { HTMLAttributes, PropsWithChildren } from "react";
 import styles from "./Background.module.css";
 
 export function Background(props: PropsWithChildren & HTMLAttributes<HTMLElement>) {
