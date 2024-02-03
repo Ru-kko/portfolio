@@ -5,10 +5,10 @@ import type { HTMLAttributes } from "astro/types";
 
 export interface Props extends HTMLAttributes<"div"> {}
 
-const attr = Astro.props
+const attr = Astro.props;
 ---
 
-<div {...attr} class:list={[ styles.about ]}>
+<div {...attr} class:list={[styles.about]}>
   <Container className={styles.about_me}>
     <h1 class={styles.title}>Jose Sebastian</h1>
     <h3>Web Developer</h3>
@@ -29,5 +29,5 @@ const attr = Astro.props
       <Button direction={Direction.RIGHT} href="/contact">Contact</Button>
     </div>
   </Container>
-  <slot></slot>
+  <slot />
 </div>

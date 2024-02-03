@@ -42,7 +42,7 @@ export function Button(props: IProps) {
     children: <span>{props.children}</span>,
   };
 
-  return props.href
-    ? <a {...attributes} href={props.href}/>
-    : <button {...attributes} />;
+  return props.href ?
+    <a {...attributes} href={props.href}/> :
+    <button {...attributes} />;
 }

@@ -20,7 +20,6 @@ export interface StandardProps {
   };
   title?: string;
 }
-// @ts-ignore
+
 export { default as Standard } from "./Standard.astro";
-// @ts-ignore
 export { default as TowColums } from "./TowColums.astro";

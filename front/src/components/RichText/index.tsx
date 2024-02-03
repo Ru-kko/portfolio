@@ -24,11 +24,9 @@ function getClsses(
 }
 
 function BuildNode(props: TextNode): JSX.Element {
-  const children = props.children ? (
-    props.children.map((v, i) => <BuildNode {...v} key={i} />)
-  ) : (
-    <></>
-  );
+  const children = props.children ?
+    props.children.map((v, i) => <BuildNode {...v} key={i} />) :
+    <></>;
 
   if (!props.type) {
     const pStyles = getClsses(
