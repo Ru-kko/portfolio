@@ -1,9 +1,14 @@
 ---
 import { Container, Button, Direction } from "@/components";
 import styles from "./About.module.css";
+import type { HTMLAttributes } from "astro/types";
+
+export interface Props extends HTMLAttributes<"div"> {}
+
+const attr = Astro.props
 ---
 
-<div class={styles.about}>
+<div {...attr} class:list={[ styles.about ]}>
   <Container className={styles.about_me}>
     <h1 class={styles.title}>Jose Sebastian</h1>
     <h3>Web Developer</h3>
@@ -26,4 +31,3 @@ import styles from "./About.module.css";
   </Container>
   <slot></slot>
 </div>
-);
