@@ -39,6 +39,12 @@ span.strikethrough {
   color: var(--gray-01);
 }
 
+.text_container h1{
+  font-size: 2.2em;
+}
+.text_container h2 {
+  font-size: 2em;
+}
 .text_container h3 {
   font-size: 1.8em;
 }
@@ -52,6 +58,11 @@ span.strikethrough {
   font-size: 1.2em;
 }
 
+.text_container ul {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
 .text_container li {
-  margin-left: 3em;
+  margin-left: 1.5em;
 }
