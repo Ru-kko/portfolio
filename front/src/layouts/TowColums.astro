@@ -1,44 +1,38 @@
 ---
-import { About, Decoration } from "@/components";
+import { About, Decoration, HouseIcon, ReturnIcon } from "@/components";
 import { Standard, type StandardProps } from ".";
+import styles from "./towcolums.module.css";
+import { extendsClassName } from "@/utils/client";
 
-export type Props = Pick<StandardProps, "title" | "MetaTags" >;
+const path = Astro.url.pathname;
+const previusPath = path.slice(0, path.lastIndexOf("/"));
+
+export type Props = Pick<StandardProps, "title" | "MetaTags">;
 
 const props = Astro.props;
 ---
 
-<Standard {...props} className="content" >
-  <About class="about">
-    <slot name="left"/>
-  </About>
+<Standard {...props} className={styles.content}>
+  <aside class={styles.left}>
+    <About class={styles.about}>
+      <slot name="left" />
+    </About>
+  </aside>
   {
     Astro.slots.has("right") ?
-      <div class="second"> <slot name="right" class="second" /> </div> :
+      <div class={styles.second}>
+        <div class={styles["content-nav"]}>
+          <a href={previusPath}>
+            <ReturnIcon className={styles.icon} />
+          </a>
+          <a href="/">
+            <HouseIcon className={extendsClassName(styles.icon, styles.home)} />
+          </a>
+        </div>
+        <section class={styles.right}>
+          <slot name="right" />
+        </section>
+      </div> :
       <Decoration />
   }
 </Standard>
-<style>
-  .content {
-    display: grid;
-    overflow-y: hidden;
-    grid-template-columns: repeat(2, 1fr);
-    justify-items: center;
-    gap: 15px;
-  }
-  @media only screen and (max-width: 1200px) {
-    .content {
-      display: block;
-    }
-    .content .about:has(+ .second) {
-      transform: scaleY(0);
-      transition: transform 0.1s ease-in;
-      transform-origin: top center;
-      animation: hide forwards .1s;
-    }
-  }
-  @keyframes hide {
-    to {
-      display: none;
-    }
-  }
-</style>
