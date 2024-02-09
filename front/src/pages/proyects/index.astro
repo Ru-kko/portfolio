@@ -1,0 +1,21 @@
+---
+import { List } from "@/components/List";
+import { ProyectItem } from "@/components/List/items";
+import { TowColums, type StandardProps } from "@/layouts";
+import { getApiService } from "@/services";
+
+const props = Astro.props;
+const response = await getApiService().getShortProyect();
+
+export interface Props extends StandardProps {}
+export const prerender = false;
+---
+
+<TowColums title={props.title ?? "Education"} MetaTags={{ ...props.MetaTags }}>
+  <List initialData={response} Component={ProyectItem} slot="left"/>
+  {
+    Astro.slots.has("default") ?
+      <slot slot="left"/> :
+      null
+  }
+</TowColums>
