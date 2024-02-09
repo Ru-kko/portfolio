@@ -9,9 +9,9 @@ export function EducationItem(props: EducationBase) {
         href={"/education/" + props.id}
         className={shared.background}
       >
-        <h2>{props.title}</h2>
+        <h2 className={shared.text}>{props.title}</h2>
         <div className={style.subtitle}>
-          <h3>{props.from}</h3>
+          <h3 className={shared.text}>{props.from}</h3>
           <span className={style[props.type]}>
             {props.type.charAt(0).toUpperCase() + props.type.slice(1)}
           </span>
