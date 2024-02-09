@@ -1,4 +1,4 @@
-import { Education, EducationBase, ListResponse, MessageRequestArgs, ProyectBase, id } from "@/types";
+import type { Education, EducationBase, ListResponse, MessageRequestArgs, ProyectBase, id } from "@/types";
 import { GraphqlApiService } from "./impl/GraphqlApiService";
 
 export interface ApiService {

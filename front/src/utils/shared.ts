@@ -6,12 +6,12 @@ export class EnviromentError extends Error {
 }
 
 export function getEnv(env: string): string {
-  if (!process.env[env]) {
+  if (!import.meta.env[env]) {
     throw new EnviromentError(
       "Cannot find " + env + " variable, please set it in ~/.env"
     );
   }
-  return process.env[env] as string;
+  return import.meta.env[env] as string;
 }
 
 export class UnmacheableEmail extends Error {

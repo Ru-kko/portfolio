@@ -1,12 +1,11 @@
-import { ListResponse, MessageRequestArgs, ProyectBase, id } from "@/types";
-import { ApiService } from "..";
+import type { ListResponse, MessageRequestArgs, ProyectBase, id, Education, EducationBase } from "@/types";
+import type { ApiService } from "..";
 import {
   getEducationList,
   getFullEducation,
   getProtyectsList,
   postMessage,
 } from "@/lib/graphql";
-import { Education, EducationBase } from "@/types/Education";
 
 export class GraphqlApiService implements ApiService {
   private getVoidListResponse<T>(page?: number): ListResponse<T> {
@@ -27,7 +26,7 @@ export class GraphqlApiService implements ApiService {
   }
 
   async getShortProyect(
-    page?: number | undefined
+    page?: number | undefined,
   ): Promise<ListResponse<ProyectBase>> {
     const res = await getProtyectsList({ page });
 

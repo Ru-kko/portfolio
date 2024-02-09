@@ -1,4 +1,4 @@
-import { HtmlHTMLAttributes, PropsWithChildren } from "react";
+import type { HtmlHTMLAttributes, PropsWithChildren } from "react";
 import styles from "./Container.module.css";
 import { extendsClassName } from "@/utils/client";
 

@@ -1,4 +1,4 @@
-import { TextNode, id } from ".";
+import type { TextNode, id } from ".";
 
 export type EducationType = "certificate" | "degree" | "course";
 

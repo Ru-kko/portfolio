@@ -1,9 +1,9 @@
 import { getEnv } from "@/utils/shared";
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import apollo from "@apollo/client";
 
-export const client = new ApolloClient({
+export const client = new apollo.ApolloClient({
   uri: getEnv("GRAPHQL_HOST"),
-  cache: new InMemoryCache(),
+  cache: new apollo.InMemoryCache(),
 });
 
 export type QueryFunction<R, A = undefined> = (

@@ -1,0 +1,44 @@
+---
+import { About, Decoration } from "@/components";
+import { Standard, type StandardProps } from ".";
+
+export type Props = Pick<StandardProps, "title" | "MetaTags" >;
+
+const props = Astro.props;
+---
+
+<Standard {...props} className="content" >
+  <About class="about">
+    <slot name="left"/>
+  </About>
+  {
+    Astro.slots.has("right") ?
+      <div class="second"> <slot name="right" class="second" /> </div> :
+      <Decoration />
+  }
+</Standard>
+<style>
+  .content {
+    display: grid;
+    overflow-y: hidden;
+    grid-template-columns: repeat(2, 1fr);
+    justify-items: center;
+    gap: 15px;
+  }
+  @media only screen and (max-width: 1200px) {
+    .content {
+      display: block;
+    }
+    .content .about:has(+ .second) {
+      transform: scaleY(0);
+      transition: transform 0.1s ease-in;
+      transform-origin: top center;
+      animation: hide forwards .1s;
+    }
+  }
+  @keyframes hide {
+    to {
+      display: none;
+    }
+  }
+</style>

@@ -1,10 +1,9 @@
-import { gql } from "@apollo/client";
-import { QueryFunction, client } from ".";
-import { ListResponse } from "@/types";
-import { ProyectBase } from "@/types/Proyects";
-import { gqlResponse } from "@/types/graphql";
+import apollo from "@apollo/client";
+import { type QueryFunction, client } from ".";
+import type { ListResponse, ProyectBase } from "@/types";
+import type { gqlResponse } from "@/types/graphql";
 
-const GET_PROYECTS_LIST = gql(`
+const GET_PROYECTS_LIST = apollo.gql(`
   query Proyects($page: Int) {
     Proyects(page: $page) {
       docs {

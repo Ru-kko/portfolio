@@ -1,23 +1,22 @@
-import { EducationBase } from "@/types";
+import type { EducationBase } from "@/types";
 import shared from "./css/shared.module.css";
 import style from "./css/education.module.css";
-import Link from "next/link";
 
 export function EducationItem(props: EducationBase) {
   return (
     <li className={shared.item}>
-      <Link
+      <a
         href={"/education/" + props.id}
         className={shared.background}
       >
-        <h2>{props.title}</h2>
+        <h2 className={shared.text}>{props.title}</h2>
         <div className={style.subtitle}>
-          <h3>{props.from}</h3>
+          <h3 className={shared.text}>{props.from}</h3>
           <span className={style[props.type]}>
             {props.type.charAt(0).toUpperCase() + props.type.slice(1)}
           </span>
         </div>
-      </Link>
+      </a>
     </li>
   );
 }

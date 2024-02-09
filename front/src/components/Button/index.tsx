@@ -1,10 +1,7 @@
-"use client";
-import { CSSProperties, HtmlHTMLAttributes } from "react";
+import type { CSSProperties, HtmlHTMLAttributes } from "react";
 import { extendsClassName } from "@/utils/client";
-import { usePathname } from "next/navigation";
 import { Direction } from "../";
 import styles from "./Button.module.css";
-import Link from "next/link";
 
 interface IProps {
   children?: string;
@@ -15,8 +12,6 @@ interface IProps {
 }
 
 export function Button(props: IProps) {
-  const path = usePathname();
-
   const fn = (): CSSProperties => {
     switch (props.direction) {
       case Direction.LEFT:
@@ -41,14 +36,13 @@ export function Button(props: IProps) {
     style: { ...fn(), ...props.attributes?.style },
     className: extendsClassName(
       styles.btn,
-      props.actived || path === props.href ? styles.actived : undefined,
+      props.actived ? styles.actived : undefined,
       props.attributes?.className
     ),
     children: <span>{props.children}</span>,
   };
 
-  return props.href
-    ? <Link {...attributes} href={props.href} />
-    : <button {...attributes} />
-  ;
+  return props.href ?
+    <a {...attributes} href={props.href}/> :
+    <button {...attributes} />;
 }
