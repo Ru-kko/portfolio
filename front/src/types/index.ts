@@ -7,6 +7,7 @@ export interface ListResponse<T> {
   prevPage: number | null;
 }
 
+export * from "./image";
 export * from "./Message";
 export * from "./Education";
 export * from "./Proyects";

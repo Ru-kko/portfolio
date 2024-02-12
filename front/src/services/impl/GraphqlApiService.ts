@@ -1,8 +1,9 @@
-import type { ListResponse, MessageRequestArgs, ProyectBase, id, Education, EducationBase } from "@/types";
+import type { ListResponse, MessageRequestArgs, ProyectBase, id, Education, EducationBase, Proyect } from "@/types";
 import type { ApiService } from "..";
 import {
   getEducationList,
   getFullEducation,
+  getFullProyect,
   getProtyectsList,
   postMessage,
 } from "@/lib/graphql";
@@ -15,6 +16,14 @@ export class GraphqlApiService implements ApiService {
       prevPage: page ? page - 1 : null,
       totalPages: 0,
     };
+  }
+
+  async getFullProyectInfo(id: string): Promise<Proyect> {
+    const res = await getFullProyect({ id });
+
+    if (res) return res;
+
+    throw new ReferenceError(`Cannot find a Proyect with id: ${id}`);
   }
 
   async getFullEducationInfo(id: string): Promise<Education> {

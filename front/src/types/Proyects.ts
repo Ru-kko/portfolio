@@ -1,4 +1,4 @@
-import type { id } from ".";
+import type { TextNode, id, Image } from ".";
 
 export type ProyectStack =
   | "docker"
@@ -30,4 +30,10 @@ export type ProyectStack =
 export interface ProyectBase extends id {
   name: string;
   stack: ProyectStack[];
+}
+
+export interface Proyect extends ProyectBase {
+  description: TextNode[];
+  ScreenShots: Image[];
+  Repository: string;
 }
