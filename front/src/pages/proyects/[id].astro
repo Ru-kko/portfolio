@@ -1,0 +1,44 @@
+---
+import { getApiService } from "@/services";
+import ErrorPage from "../404.astro";
+import ProyectsPage from "./index.astro";
+import { DetailedProyect } from "@/css";
+import { GithubLogo, IconChip, RichText } from "@/components";
+
+const { id } = Astro.params;
+const content =
+  id ?
+    await getApiService()
+      .getFullProyectInfo(id)
+      .catch((e) => {
+        console.error(e);
+        return null;
+      }) :
+    null;
+
+export const prerender = false;
+---
+
+{
+  content ?
+    <ProyectsPage title={content.name} MetaTags={{}}>
+      <div class={DetailedProyect.detail}>
+        <div class={DetailedProyect.head}>
+          <div class={DetailedProyect.title}>
+            <h1>{content.name}</h1>
+            <a href={content.Repository} target="_blank">
+              <GithubLogo className="ghlogo" />
+            </a>
+          </div>
+          <div class={DetailedProyect.stack}>
+            {content.stack.map((i) => (
+              <IconChip name={i} />
+            ))}
+          </div>
+        </div>
+        <RichText content={content.description} />
+        <!-- TODO: Add image scroller -->
+      </div>
+    </ProyectsPage> :
+    <ErrorPage />
+}
