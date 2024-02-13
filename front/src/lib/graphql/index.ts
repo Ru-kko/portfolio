@@ -1,8 +1,8 @@
-import { getEnv } from "@/utils/shared";
+import { GRAPHQL_HOST } from "@/utils/enviroment";
 import apollo from "@apollo/client";
 
 export const client = new apollo.ApolloClient({
-  uri: getEnv("GRAPHQL_HOST"),
+  uri: GRAPHQL_HOST,
   cache: new apollo.InMemoryCache(),
 });
 
