@@ -20,8 +20,14 @@ const GET_PROYECTS_LIST = apollo.gql(`
 const GET_FULL_PROYECT = apollo.gql(`
   query Proyect($id: String!) {
     Proyect(id: $id) {
+      id
+      description
+      Repository
+      name
+      stack
       ScreenShots {
-        id
+        alt
+        url
         sizes {
           card {
             url
@@ -30,13 +36,7 @@ const GET_FULL_PROYECT = apollo.gql(`
             url
           }
         }
-        alt
-        url
       }
-      id
-      description
-      Repository
-      name
     }
   }
 `);
