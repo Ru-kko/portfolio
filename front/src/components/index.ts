@@ -8,4 +8,5 @@ export * from "./LogCode";
 export * from "./Decoration";
 export * from "./IconChip";
 export * from "./RichText";
+export * from "./imgSlider";
 export { default as About } from "./About/index.astro";

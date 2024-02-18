@@ -4,6 +4,8 @@ import ErrorPage from "../404.astro";
 import ProyectsPage from "./index.astro";
 import { DetailedProyect } from "@/css";
 import { GithubLogo, IconChip, RichText } from "@/components";
+import { ImageSlider } from "@/components/imgSlider";
+import { STATIC_PATH } from "@/utils/enviroment";
 
 const { id } = Astro.params;
 const content =
@@ -37,7 +39,11 @@ export const prerender = false;
           </div>
         </div>
         <RichText content={content.description} />
-        <!-- TODO: Add image scroller -->
+        <ImageSlider
+          staticPath={STATIC_PATH}
+          client:visible
+          images={content.ScreenShots}
+        />
       </div>
     </ProyectsPage> :
     <ErrorPage />
