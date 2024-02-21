@@ -9,47 +9,64 @@ interface Props {
 
 export function ImageSlider({ images, staticPath }: Props) {
   const [actual, setActual] = useState(0);
+  const [modalState, setModal] = useState(false);
+
+  const moveRight = () => setActual(getIndex(actual + 1));
+  const moveLeft = () => setActual(getIndex(actual - 1));
+
   const getIndex = (i: number) =>
     ((i % images.length) + images.length) % images.length;
-  // Todo add image modal
+
   return (
-    <article className={styles.container}>
-      <div className={styles.capsule}>
-        <div className={styles.slider}>
-          <div>
+    <>
+      <dialog
+        open={modalState}
+        className={styles.modal}
+        onClick={(e) => {
+          if (e.target === e.currentTarget) setModal(!modalState);
+        }}
+      >
+        <button onClick={moveLeft}>{"<"}</button>
+        {
+          modalState ?
             <img
-              src={staticPath + images[getIndex(actual - 1)]?.sizes.card.url}
-              alt={images[getIndex(actual - 1)]?.alt}
-            />
-          </div>
-          <div>
-            <img
-              src={staticPath + images[actual]?.sizes.card.url}
+              src={staticPath + images[actual]?.sizes.thumbnail.url}
               alt={images[actual]?.alt}
-            />
-          </div>
-          <div>
-            <img
-              src={staticPath + images[getIndex(actual + 1)]?.sizes.card.url}
-              alt={images[getIndex(actual + 1)]?.alt}
-            />
+            /> :
+            null
+        }
+        <button onClick={moveRight}>{">"}</button>
+      </dialog>
+      <article className={styles.container}>
+        <div className={styles.capsule}>
+          <div className={styles.slider}>
+            <div className={styles.img_l}>
+              <img
+                src={staticPath + images[getIndex(actual - 1)]?.sizes.card.url}
+                alt={images[getIndex(actual - 1)]?.alt}
+              />
+            </div>
+            <button className={styles.img_c} onClick={() => setModal(true)}>
+              <img
+                src={staticPath + images[actual]?.sizes.card.url}
+                alt={images[actual]?.alt}
+              />
+            </button>
+            <div className={styles.img_r}>
+              <img
+                src={staticPath + images[getIndex(actual + 1)]?.sizes.card.url}
+                alt={images[getIndex(actual + 1)]?.alt}
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <div className={styles.controller}>
-        <button
-          onClick={() => setActual(getIndex(actual - 1))}
-          className={styles.left}
-        >
+        <button onClick={moveLeft} className={styles.left}>
           {"<"}
         </button>
-        <button
-          onClick={() => setActual(getIndex(actual + 1))}
-          className={styles.right}
-        >
+        <button onClick={moveRight} className={styles.right}>
           {">"}
         </button>
-      </div>
-    </article>
+      </article>
+    </>
   );
 }
