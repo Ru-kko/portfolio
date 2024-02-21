@@ -14,12 +14,12 @@ const Images: CollectionConfig = {
     imageSizes: [
       {
         name: "card",
-        width: 1024,
+        height: 480,
         position: "centre",
       },
       {
         name: "thumbnail",
-        width: 320,
+        height: 900,
         position: "centre",
       },
     ],
