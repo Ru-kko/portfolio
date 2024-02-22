@@ -1,3 +1,4 @@
+import { text } from "express";
 import { CollectionConfig } from "payload/types";
 
 const Education: CollectionConfig = {
@@ -20,6 +21,21 @@ const Education: CollectionConfig = {
     {
       name: "description",
       type: "richText",
+    },
+    {
+      name: "resume",
+      type: "text",
+    },
+    {
+      name: "keywords",
+      type: "array",
+      minRows: 1,
+      fields: [
+        {
+          name: "name",
+          type: "text",
+        },
+      ],
     },
     {
       name: "start_date",

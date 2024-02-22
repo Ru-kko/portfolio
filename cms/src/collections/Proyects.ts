@@ -20,6 +20,21 @@ const Proyects: CollectionConfig = {
       type: "richText",
     },
     {
+      name: "resume",
+      type: "text",
+    },
+    {
+      name: "keywords",
+      type: "array",
+      minRows: 1,
+      fields: [
+        {
+          name: "name",
+          type: "text",
+        },
+      ],
+    },
+    {
       name: "Repository",
       type: "text",
       required: false,
