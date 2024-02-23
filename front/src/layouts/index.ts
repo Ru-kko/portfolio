@@ -14,10 +14,9 @@ type MetaName =
   | "twitter:image"
   | "twitter:url";
 
+export type MetaTags = { [K in MetaName]?: string };
 export interface StandardProps {
-  MetaTags: {
-    [K in MetaName]?: string;
-  };
+  MetaTags: MetaTags;
   title?: string;
 }
 

@@ -37,7 +37,18 @@ export const prerender = false;
 
 {
   content ?
-    <EducationPage title={content.title} MetaTags={{}}>
+    <EducationPage
+      title={content.title}
+      MetaTags={{
+        "og:title": content.title,
+        "twitter:title": content.title,
+        "og:url": "/education/" + content.id,
+        "twitter:url": "/education/" + content.id,
+        "twitter:description": content.resume,
+        "og:description": content.resume,
+        keywords: content.keywords.map(v => v.name).join(", "),
+      }}
+      >
       <div class="detail">
         <div class="head">
           <h1>{content.title}</h1>

@@ -11,7 +11,24 @@ export interface Props extends StandardProps {}
 export const prerender = false;
 ---
 
-<TowColums title={props.title ?? "Education"} MetaTags={{ ...props.MetaTags }}>
+<TowColums
+  title={props.title ?? "Education"}
+  MetaTags={{
+    "og:url": "/education",
+    "twitter:url": "/education",
+    "twitter:title": "Sebastian's Courses",
+    "og:title": "Sebastian's Courses",
+    keywords: "Software enginner, Mision Tic 2022, " +
+      "Mision Tic, GPC course, Course, Certificate, Degre",
+    "twitter:description": "Courses, degree, certificates of a " +
+      "web developer Full stack",
+    "og:description": "Courses, degree, certificates of a " +
+      "web developer Full stack",
+    description: "Courses, degree, certificates of a " +
+      "web developer Full stack",
+    ...props.MetaTags,
+  }}
+>
   <List initialData={response} Component={EducationItem} slot="left" />
   {Astro.slots.has("default") ? <slot slot="right" /> : null}
 </TowColums>

@@ -23,7 +23,19 @@ export const prerender = false;
 
 {
   content ?
-    <ProyectsPage title={content.name} MetaTags={{}}>
+    <ProyectsPage
+      title={content.name}
+      MetaTags={{
+        "og:title": content.name,
+        "twitter:title": content.name,
+        "og:url": "/proyects/" + content.id,
+        "twitter:url": "/proyects/" + content.id,
+        "twitter:description": content.resume,
+        "og:description": content.resume,
+        "og:image": STATIC_PATH + content.ScreenShots[0]?.sizes.card.url,
+        "twitter:image": STATIC_PATH + content.ScreenShots[0]?.sizes.card.url,
+        keywords: content.keywords.map(v => v.name).join(", "),
+      }}>
       <div class={DetailedProyect.detail}>
         <div class={DetailedProyect.head}>
           <div class={DetailedProyect.title}>
