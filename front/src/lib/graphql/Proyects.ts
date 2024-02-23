@@ -25,6 +25,10 @@ const GET_FULL_PROYECT = apollo.gql(`
       Repository
       name
       stack
+      resume
+      keywords {
+        name
+      }
       ScreenShots {
         alt
         url

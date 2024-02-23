@@ -36,4 +36,8 @@ export interface Proyect extends ProyectBase {
   description: TextNode[];
   ScreenShots: Image[];
   Repository: string;
+  keywords: {
+    name: string;
+  };
+  resume: string;
 }

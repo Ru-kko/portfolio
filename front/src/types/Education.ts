@@ -12,4 +12,8 @@ export interface Education extends EducationBase {
   description: TextNode[];
   start_date: string;
   end_date: string;
+  resume: string;
+  keywords: {
+    name: string;
+  }
 }

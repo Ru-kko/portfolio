@@ -29,6 +29,10 @@ const GET_FULL_EDUCATION = apollo.gql(`
       description
       start_date
       end_date
+      keywords {
+        name
+      }
+      resume
    }
   }
 `);
