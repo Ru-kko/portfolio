@@ -38,6 +38,6 @@ export interface Proyect extends ProyectBase {
   Repository: string;
   keywords: {
     name: string;
-  };
+  }[];
   resume: string;
 }

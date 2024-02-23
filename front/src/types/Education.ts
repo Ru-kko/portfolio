@@ -15,5 +15,5 @@ export interface Education extends EducationBase {
   resume: string;
   keywords: {
     name: string;
-  }
+  }[];
 }
