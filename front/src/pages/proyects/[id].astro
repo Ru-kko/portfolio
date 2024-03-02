@@ -51,11 +51,15 @@ export const prerender = false;
           </div>
         </div>
         <RichText content={content.description} />
-        <ImageSlider
-          staticPath={STATIC_PATH}
-          client:visible
-          images={content.ScreenShots}
-        />
+        {
+          content.ScreenShots.length > 0 ?
+            <ImageSlider
+              staticPath={STATIC_PATH}
+              client:visible
+              images={content.ScreenShots}
+            /> :
+            null
+        }
       </div>
     </ProyectsPage> :
     <ErrorPage />
