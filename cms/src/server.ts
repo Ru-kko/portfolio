@@ -16,6 +16,7 @@ const start = async () => {
     express: app,
     onInit: async () => {
       payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`);
+      app.get("/ping", (_, res) => res.send("pong"))
     },
   });
 

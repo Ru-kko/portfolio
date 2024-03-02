@@ -34,6 +34,12 @@ services:
       - DB_PORT
       - PORT=${CMS_PORT}
       - PAYLOAD_SECRET=${CMS_SECRET}
+    healthcheck:
+      test: node /home/node/app/healthchek.js 
+      interval: 20s
+      timeout: 5s
+      start_period: 30s
+      retries: 3
     ports:
       - ${CMS_PORT}:${CMS_PORT}
     volumes:

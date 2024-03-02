@@ -28,6 +28,7 @@ ENV PAYLOAD_SECRET=
 WORKDIR /home/node/app
 COPY package*.json  ./
 COPY pnpm-lock.yaml ./
+COPY ./healthcheck.js ./
 
 RUN pnpm install --prod --frozen-lockfile
 COPY --from=builder /home/node/app/dist ./dist
