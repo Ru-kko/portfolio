@@ -35,7 +35,7 @@ services:
       - PORT=${CMS_PORT}
       - PAYLOAD_SECRET=${CMS_SECRET}
     healthcheck:
-      test: node /home/node/app/healthchek.js 
+      test: node /home/node/app/healthcheck.js
       interval: 20s
       timeout: 5s
       start_period: 30s
