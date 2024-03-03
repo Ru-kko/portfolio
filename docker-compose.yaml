@@ -47,3 +47,16 @@ services:
     depends_on:
       db:
         condition: service_healthy
+  client:
+    build:
+      context: ./front
+    environment:
+      - GRAPHQL_HOST=http://cms:${CMS_PORT}/api/graphql
+      - STATIC_PATH
+      - APP_DOMAIN
+      - PORT=${CLIENT_PORT}
+    depends_on:
+      cms:
+        condition: service_healthy
+    ports:
+      - ${CLIENT_PORT}:${CLIENT_PORT}
