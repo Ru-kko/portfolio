@@ -1,7 +1,6 @@
 .about {
   display: flex;
   flex-direction: column;
-  overflow-y: auto;
   max-height: 100vh;
   height: 95%;
   padding-bottom: 10px;

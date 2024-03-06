@@ -1,9 +1,9 @@
 import type { TextNode } from "@/types/RichText";
-import { createElement } from "react";
+import { createElement, type HTMLAttributes } from "react";
 import styles from "./RichText.module.css";
 import { extendsClassName } from "@/utils/client";
 
-interface props {
+interface props extends Omit<HTMLAttributes<HTMLDivElement>, "content"> {
   content: TextNode[];
 }
 
@@ -67,9 +67,9 @@ function BuildNode(props: TextNode): JSX.Element {
   }
 }
 
-export function RichText({ content }: props) {
+export function RichText({ content, ...attr }: props) {
   return (
-    <div className={styles.text_container}>
+    <div {...attr} className={extendsClassName(attr.className, styles.text_container)}>
       {content.map((v, i) => (
         <BuildNode {...v} key={i} />
       ))}
