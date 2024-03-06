@@ -50,9 +50,10 @@ services:
   client:
     build:
       context: ./front
+    restart: always
     environment:
       - GRAPHQL_HOST=http://cms:${CMS_PORT}/api/graphql
-      - STATIC_PATH
+      - STATIC_PATH=${APP_DOMAIN}
       - APP_DOMAIN
       - PORT=${CLIENT_PORT}
     depends_on:
@@ -60,3 +61,17 @@ services:
         condition: service_healthy
     ports:
       - ${CLIENT_PORT}:${CLIENT_PORT}
+  gateway:
+    image: nginx
+    restart: always
+    ports:
+      - 80:80
+    environment: 
+      - CLIENT_PORT
+      - CMS_PORT
+      - APP_DOMAIN
+    volumes:
+      - ./network/nginx.conf:/etc/nginx/templates/default.conf.template:ro 
+    depends_on:
+      cms:
+        condition: service_healthy
