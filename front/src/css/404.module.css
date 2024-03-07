@@ -1,5 +1,5 @@
 @keyframes text-anim {
-  form {
+  from {
     text-shadow:
       0px 0px 100px rgba(var(--gray-01-rgb), 0.7),
       3px 3px 0px var(--blue-01),
