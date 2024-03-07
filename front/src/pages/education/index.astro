@@ -8,6 +8,10 @@ const props = Astro.props;
 const response = await getApiService().getShortEducation();
 
 export interface Props extends StandardProps {}
+
+// * An stupid fix to stupid esrror
+const slotName = Astro.slots.has("default") ? "right" : "";
+
 export const prerender = false;
 ---
 
@@ -30,5 +34,5 @@ export const prerender = false;
   }}
 >
   <List initialData={response} Component={EducationItem} slot="left" />
-  {Astro.slots.has("default") ? <slot slot="right" /> : null}
+  { Astro.slots.has("default") ? <slot slot={slotName} /> : null }
 </TowColums>

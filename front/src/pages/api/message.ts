@@ -2,11 +2,8 @@ import { getApiService } from "@/services";
 import type { MessageRequestArgs } from "@/types";
 import type { APIRoute } from "astro";
 
-export const GET: APIRoute = () => {
-  return new Response("", {
-    status: 404,
-  });
-};
+// * why is this nessesary?
+export const prerender = false;
 
 export const POST: APIRoute = async ({ request, ...ctx }) => {
   const cookie = ctx.cookies.get("last-message")?.value;
