@@ -11,21 +11,19 @@ services:
       - DB_USERNAME
       - DB_PASSWORD
       - DB_NAME
-
     healthcheck:
-      test: mongosh --eval 'db.runCommand("ping").ok' db:${DB_PORT}/${DB_NAME}t --quiet
+      test: mongosh --eval 'db.runCommand("ping").ok' db:${DB_PORT}/${DB_NAME} --quiet
       interval: 40s
       timeout: 10s
       retries: 3
-      start_period: 1m
-    ports:
-      - ${DB_PORT}:27017
+      start_period: 30s
     volumes:
       - ./data/database:/data/db
       - ./database/initdb.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
   cms:
     build:
       context: ./cms
+    image: ${REGISRTY}/cms
     environment:
       - DB_NAME
       - DB_USERNAME
@@ -38,7 +36,7 @@ services:
       test: node /home/node/app/healthcheck.js
       interval: 20s
       timeout: 5s
-      start_period: 30s
+      start_period: 50s
       retries: 3
     ports:
       - ${CMS_PORT}:${CMS_PORT}
@@ -50,6 +48,7 @@ services:
   client:
     build:
       context: ./front
+    image: ${REGISRTY}/client
     restart: always
     environment:
       - GRAPHQL_HOST=http://cms:${CMS_PORT}/api/graphql
@@ -59,14 +58,12 @@ services:
     depends_on:
       cms:
         condition: service_healthy
-    ports:
-      - ${CLIENT_PORT}:${CLIENT_PORT}
   gateway:
     image: nginx
     restart: always
     ports:
       - 80:80
-    environment: 
+    environment:
       - CLIENT_PORT
       - CMS_PORT
       - APP_DOMAIN
