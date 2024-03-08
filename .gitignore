@@ -20,3 +20,6 @@ yarn-error.log*
 /data/
 
 *.tsbuildinfo
+
+network/certificates/*.crt
+network/certificates/*.key

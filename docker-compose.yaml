@@ -52,7 +52,7 @@ services:
     restart: always
     environment:
       - GRAPHQL_HOST=http://cms:${CMS_PORT}/api/graphql
-      - STATIC_PATH=${APP_DOMAIN}
+      - STATIC_PATH=https://${APP_DOMAIN}
       - APP_DOMAIN
       - PORT=${CLIENT_PORT}
     depends_on:
@@ -67,8 +67,12 @@ services:
       - CLIENT_PORT
       - CMS_PORT
       - APP_DOMAIN
+      - CLIENT=client
+      - CMS=cms
+      - CERTIFICATES_FOLDER
     volumes:
       - ./network/nginx.conf:/etc/nginx/templates/default.conf.template:ro 
+      - ./network/certificates:${CERTIFICATES_FOLDER}:ro
     depends_on:
       cms:
         condition: service_healthy
