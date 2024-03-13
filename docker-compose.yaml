@@ -56,8 +56,7 @@ services:
     restart: always
     environment:
       - GRAPHQL_HOST=http://cms:${CMS_PORT}/api/graphql
-      - STATIC_PATH=https://${APP_DOMAIN}
-      - APP_DOMAIN
+      - APP_DOMAIN=https://${APP_DOMAIN}
       - PORT=80
       - HOST=10.5.0.5
     depends_on:
