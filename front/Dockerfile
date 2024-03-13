@@ -16,7 +16,7 @@ RUN pnpm run build
 FROM base as runtime
 
 ENV NODE_ENV=production
-ENV HOST=0.0.0.0
+ENV HOST=
 ENV PORT=4321
 ENV GRAPHQL_HOST=
 ENV STATIC_PATH=
