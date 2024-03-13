@@ -1,6 +1,5 @@
 ---
 import { getApiService } from "@/services";
-import ErrorPage from "../404.astro";
 import ProyectsPage from "./index.astro";
 import { DetailedProyect } from "@/css";
 import { GithubLogo, IconChip, RichText } from "@/components";
@@ -14,6 +13,7 @@ const content =
       .getFullProyectInfo(id)
       .catch((e) => {
         console.error(e);
+        Astro.response.status = 404;
         return null;
       }) :
     null;
@@ -22,7 +22,7 @@ export const prerender = false;
 ---
 
 {
-  content ?
+  content &&
     <ProyectsPage
       title={content.name}
       MetaTags={{
@@ -61,6 +61,5 @@ export const prerender = false;
             null
         }
       </div>
-    </ProyectsPage> :
-    <ErrorPage />
+    </ProyectsPage>
 }

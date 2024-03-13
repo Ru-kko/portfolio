@@ -1,6 +1,5 @@
 ---
 import { getApiService } from "@/services";
-import ErrorPage from "../404.astro";
 import EducationPage from "./index.astro";
 import { RichText } from "@/components";
 
@@ -11,6 +10,7 @@ const content =
       .getFullEducationInfo(id)
       .catch((e) => {
         console.error(e);
+        Astro.response.status = 404;
         return null;
       }) :
     null;
@@ -36,7 +36,7 @@ export const prerender = false;
 ---
 
 {
-  content ?
+  content &&
     <EducationPage
       title={content.title}
       MetaTags={{
@@ -72,8 +72,7 @@ export const prerender = false;
         </div>
         <RichText content={content.description} />
       </div>
-    </EducationPage> :
-    <ErrorPage />
+    </EducationPage>
 }
 <style>
   .detail {
