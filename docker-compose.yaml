@@ -26,6 +26,7 @@ services:
     build:
       context: ./cms
     image: ${REGISRTY}/cms
+    restart: always
     environment:
       - DB_NAME
       - DB_USERNAME
