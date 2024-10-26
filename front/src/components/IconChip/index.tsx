@@ -1,4 +1,4 @@
-import type { ProyectStack } from "@/types";
+import type { Technology } from "@/types";
 import type { FunctionComponent } from "react";
 import {
   AndroidLogo,
@@ -27,11 +27,11 @@ import {
 import styles from "./iconchip.module.css";
 
 interface iconProps {
-  name: ProyectStack;
+  name: Technology;
 }
 
 type def = {
-  [key in ProyectStack]: {
+  [key in Technology]: {
     displayName: string;
     Icon?: FunctionComponent<classNameProp>;
     color: string;

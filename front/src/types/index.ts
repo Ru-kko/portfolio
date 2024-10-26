@@ -12,3 +12,4 @@ export * from "./Message";
 export * from "./Education";
 export * from "./Proyects";
 export * from "./RichText";
+export * from "./Technology";
