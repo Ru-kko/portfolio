@@ -1,11 +1,11 @@
 **/.env*
 !**/.env.example
-./**/build
 
-/front/.next
-/front/out/
-/front/next-env.d.ts
-/front/.vercel
+
+**/build
+**/dist
+
+front/.astro
 
 /cms/media
 /cms/.DS_Store 
