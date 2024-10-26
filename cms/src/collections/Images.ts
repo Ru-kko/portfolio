@@ -3,7 +3,7 @@ import { CollectionConfig } from "payload/types";
 const Images: CollectionConfig = {
   slug: "images",
   admin: {
-    useAsTitle: "name",
+    useAsTitle: "alt",
   },
   access: {
     read: () => true,

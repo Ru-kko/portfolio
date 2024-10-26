@@ -2,7 +2,7 @@ import { CollectionConfig } from "payload/types";
 import { Technologies } from "../Technologies";
 
 const Experience: CollectionConfig = {
-  slug: "education",
+  slug: "experience",
   admin: {
     useAsTitle: "name",
   },

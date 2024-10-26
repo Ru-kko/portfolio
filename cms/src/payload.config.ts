@@ -6,7 +6,7 @@ import { viteBundler } from "@payloadcms/bundler-vite";
 import { slateEditor } from '@payloadcms/richtext-slate'
 import { buildConfig } from 'payload/config'
 import { DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USERNAME } from './config/env'
-import { Education, Images, Messagges, Proyects, Users } from './collections';
+import { Education, Images, Messagges, Proyects, Users, Experience } from './collections';
 
 export default buildConfig({
   admin: {
@@ -14,7 +14,7 @@ export default buildConfig({
     bundler: viteBundler(),
   },
   editor: slateEditor({}),
-  collections: [Users, Messagges, Images, Proyects, Education ],
+  collections: [Users, Messagges, Images, Proyects, Education, Experience ],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },
