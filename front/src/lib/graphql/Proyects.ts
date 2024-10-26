@@ -1,9 +1,9 @@
-import apollo from "@apollo/client";
+import { gql } from "@apollo/client/index.js";
 import { type QueryFunction, client } from ".";
 import type { ListResponse, Proyect, ProyectBase } from "@/types";
 import type { gqlResponse } from "@/types/graphql";
 
-const GET_PROYECTS_LIST = apollo.gql(`
+const GET_PROYECTS_LIST = gql(`
   query Proyects($page: Int) {
     Proyects(page: $page) {
       docs {
@@ -17,7 +17,7 @@ const GET_PROYECTS_LIST = apollo.gql(`
     }
   }
 `);
-const GET_FULL_PROYECT = apollo.gql(`
+const GET_FULL_PROYECT = gql(`
   query Proyect($id: String!) {
     Proyect(id: $id) {
       id

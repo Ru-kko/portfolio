@@ -1,9 +1,9 @@
 import { GRAPHQL_HOST } from "@/utils/enviroment";
-import apollo from "@apollo/client";
+import { ApolloClient, InMemoryCache } from "@apollo/client/index.js";
 
-export const client = new apollo.ApolloClient({
+export const client = new ApolloClient({
   uri: GRAPHQL_HOST,
-  cache: new apollo.InMemoryCache(),
+  cache: new InMemoryCache(),
 });
 
 export type QueryFunction<R, A = undefined> = (

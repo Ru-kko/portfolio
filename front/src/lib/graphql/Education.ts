@@ -1,9 +1,9 @@
-import apollo from "@apollo/client";
+import { gql } from "@apollo/client/index.js";
 import { type QueryFunction, client } from ".";
 import type { gqlResponse } from "@/types/graphql";
 import type { Education, EducationBase, ListResponse } from "@/types";
 
-const GET_EDUCATION_LIST = apollo.gql(`
+const GET_EDUCATION_LIST = gql(`
   query Educations($page: Int) {
     Educations(page: $page) {
       docs {
@@ -19,7 +19,7 @@ const GET_EDUCATION_LIST = apollo.gql(`
   }
 `);
 
-const GET_FULL_EDUCATION = apollo.gql(`
+const GET_FULL_EDUCATION = gql(`
   query Education($id: String!) {
     Education(id: $id) {
       id
