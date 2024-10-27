@@ -44,6 +44,11 @@
     padding-bottom: 5px;
   }
 }
+@media only screen and (max-width: 430px) {
+  .btn_cont {
+    justify-content: center;
+  }
+}
 @media only screen and (max-height: 800px) {
   .about {
     height: auto;

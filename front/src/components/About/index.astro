@@ -40,6 +40,11 @@ const attr = { ...arg, class: extendsClassName(arg.class ?? undefined, styles.ab
         href="/proyects">Projects</Button
       >
       <Button
+        direction={Direction.CENTER}
+        actived={currentPath === "experience"}
+        href="/experience">Experience</Button
+      >
+      <Button
         direction={Direction.RIGHT}
         actived={currentPath === "contact"}
         href="/contact">Contact</Button
