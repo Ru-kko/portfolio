@@ -13,3 +13,4 @@ export type QueryFunction<R, A = undefined> = (
 export * from "./Messages";
 export * from "./Education";
 export * from "./Proyects";
+export * from "./Experience";

@@ -1,7 +1,18 @@
-import type { ListResponse, MessageRequestArgs, ProyectBase, id, Education, EducationBase, Proyect } from "@/types";
+import type {
+  ListResponse,
+  MessageRequestArgs,
+  ProyectBase,
+  id,
+  Education,
+  EducationBase,
+  Proyect,
+  ExperienceBase,
+} from "@/types";
 import type { ApiService } from "..";
 import {
+  client,
   getEducationList,
+  getExperienceList,
   getFullEducation,
   getFullProyect,
   getProtyectsList,
@@ -35,7 +46,7 @@ export class GraphqlApiService implements ApiService {
   }
 
   async getShortProyect(
-    page?: number | undefined,
+    page?: number | undefined
   ): Promise<ListResponse<ProyectBase>> {
     const res = await getProtyectsList({ page });
 
@@ -51,6 +62,14 @@ export class GraphqlApiService implements ApiService {
   async getShortEducation(page?: number): Promise<ListResponse<EducationBase>> {
     const res = await getEducationList({ page: page ?? 1 });
 
+    return res ?? this.getVoidListResponse();
+  }
+
+  async getShortExperience(
+    page?: number
+  ): Promise<ListResponse<ExperienceBase>> {
+    const res = await getExperienceList({ page });
+    client.clearStore();
     return res ?? this.getVoidListResponse();
   }
 }
