@@ -7,6 +7,7 @@ import type {
   EducationBase,
   Proyect,
   ExperienceBase,
+  Experience,
 } from "@/types";
 import type { ApiService } from "..";
 import {
@@ -14,6 +15,7 @@ import {
   getEducationList,
   getExperienceList,
   getFullEducation,
+  getFullExperience,
   getFullProyect,
   getProtyectsList,
   postMessage,
@@ -32,7 +34,7 @@ export class GraphqlApiService implements ApiService {
 
   private async handleCache() {
     const now = new Date();
-    if (this.lastCacheClear && (now.getTime() - this.lastCacheClear.getTime()) <= 24 * 60 * 60 * 1000) return;
+    if (this.lastCacheClear && (now.getTime() - this.lastCacheClear.getTime()) <= 15 * 60 * 1000) return;
 
     await client.clearStore();
     this.lastCacheClear = now;
@@ -84,5 +86,14 @@ export class GraphqlApiService implements ApiService {
     await this.handleCache();
     const res = await getExperienceList({ page });
     return res ?? this.getVoidListResponse();
+  }
+
+  async getFullExperienceInfo(id: string): Promise<Experience> {
+    await this.handleCache();
+    const res = await getFullExperience({ id });
+
+    if (res) return res;
+
+    throw new ReferenceError(`Cannot find a Experience with id: ${id}`);
   }
 }
