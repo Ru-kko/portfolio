@@ -20,6 +20,7 @@ import {
 } from "@/lib/graphql";
 
 export class GraphqlApiService implements ApiService {
+  private lastCacheClear: Date | null = null;
   private getVoidListResponse<T>(page?: number): ListResponse<T> {
     return {
       docs: [] as T[],
@@ -29,7 +30,16 @@ export class GraphqlApiService implements ApiService {
     };
   }
 
+  private async handleCache() {
+    const now = new Date();
+    if (this.lastCacheClear && (now.getTime() - this.lastCacheClear.getTime()) <= 24 * 60 * 60 * 1000) return;
+
+    await client.clearStore();
+    this.lastCacheClear = now;
+  }
+
   async getFullProyectInfo(id: string): Promise<Proyect> {
+    await this.handleCache();
     const res = await getFullProyect({ id });
 
     if (res) return res;
@@ -38,6 +48,7 @@ export class GraphqlApiService implements ApiService {
   }
 
   async getFullEducationInfo(id: string): Promise<Education> {
+    await this.handleCache();
     const res = await getFullEducation({ id });
 
     if (res) return res;
@@ -48,6 +59,7 @@ export class GraphqlApiService implements ApiService {
   async getShortProyect(
     page?: number | undefined
   ): Promise<ListResponse<ProyectBase>> {
+    await this.handleCache();
     const res = await getProtyectsList({ page });
 
     return res ?? this.getVoidListResponse();
@@ -60,6 +72,7 @@ export class GraphqlApiService implements ApiService {
   }
 
   async getShortEducation(page?: number): Promise<ListResponse<EducationBase>> {
+    await this.handleCache();
     const res = await getEducationList({ page: page ?? 1 });
 
     return res ?? this.getVoidListResponse();
@@ -68,8 +81,8 @@ export class GraphqlApiService implements ApiService {
   async getShortExperience(
     page?: number
   ): Promise<ListResponse<ExperienceBase>> {
+    await this.handleCache();
     const res = await getExperienceList({ page });
-    client.clearStore();
     return res ?? this.getVoidListResponse();
   }
 }
