@@ -4,7 +4,7 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
-FROM base as builder
+FROM base AS builder
 
 WORKDIR /home/node/app
 COPY package*.json ./
@@ -13,7 +13,7 @@ COPY . .
 RUN pnpm install --frozen-lockfile
 RUN pnpm run build
 
-FROM base as runtime
+FROM base AS runtime
 
 ENV NODE_ENV=production
 ENV HOST=
