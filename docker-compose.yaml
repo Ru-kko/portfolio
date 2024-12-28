@@ -55,15 +55,12 @@ services:
     restart: always
     environment:
       - GRAPHQL_HOST=http://cms:${CMS_PORT}/api/graphql
-      - APP_DOMAIN=https://${APP_DOMAIN}
-      - PORT=80
-      - HOST=10.5.0.5
+      - APP_DOMAIN=https://www.${APP_DOMAIN}
     depends_on:
       cms:
         condition: service_healthy
     networks:
       app:
-        ipv4_address: 10.5.0.5
   gateway:
     image: nginx
     restart: always
@@ -71,11 +68,9 @@ services:
       - 80:80
       - 443:443
     environment:
-      - CLIENT_PORT=80
-      - CMS_PORT
       - APP_DOMAIN
-      - CLIENT=client
-      - CMS=cms
+      - CLIENT=client:4321
+      - CMS=cms:${CMS_PORT}
       - CERTIFICATES_FOLDER
     volumes:
       - ./network/nginx.conf:/etc/nginx/templates/default.conf.template:ro 
@@ -88,8 +83,3 @@ services:
 
 networks:
   app:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 10.5.0.0/16
-          gateway: 10.5.0.1

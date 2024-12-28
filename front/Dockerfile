@@ -24,11 +24,10 @@ ENV APP_DOMAIN=
 WORKDIR /home/node/app
 COPY package*.json  ./
 COPY pnpm-lock.yaml ./
-COPY entry.sh ./
 
 RUN pnpm install --prod --frozen-lockfile
 COPY --from=builder /home/node/app/dist ./dist
 
 EXPOSE ${PORT}
 
-CMD /bin/bash ./entry.sh ${HOST} ${PORT} ./dist/server/entry.mjs
+CMD ["node", "./dist/server/entry.mjs"]
