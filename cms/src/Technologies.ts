@@ -87,7 +87,7 @@ export const Technologies: Option[] = [
   },
   {
     label: "Android",
-    value: "andorid",
+    value: "android",
   },
   {
     label: "Linux",
