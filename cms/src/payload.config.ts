@@ -25,4 +25,9 @@ export default buildConfig({
   db: mongooseAdapter({
     url: `mongodb://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
   }),
+  upload: {
+    limits: {
+      fileSize: 2000000,
+    },
+  },
 })
