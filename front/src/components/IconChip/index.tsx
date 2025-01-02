@@ -107,6 +107,8 @@ const ChipDef: def = {
 
 export function IconChip({ name }: iconProps) {
   const Component = ChipDef[name]?.Icon;
+  console.log({ name, ChipDef, obj: ChipDef[name] });
+
   return (
     <div
       className={styles.chip_container}
