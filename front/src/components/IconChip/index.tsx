@@ -115,7 +115,7 @@ export function IconChip({ name }: iconProps) {
       }}
     >
       {Component ? <Component className={name === "React" ? styles.react : undefined} /> : ""}
-      <span className={styles.chip}>{ChipDef[name].displayName}</span>
+      <span className={styles.chip}>{ChipDef[name]?.displayName}</span>
     </div>
   );
 }
