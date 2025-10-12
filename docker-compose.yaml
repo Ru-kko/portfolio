@@ -1,4 +1,20 @@
 services:
+  objects:
+    image: localstack/localstack:s3-latest
+    restart: always
+    environment:
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - S3_BUCKET
+      - S3_REGION
+      - DATA_DIR=/var/lib/localstack/data
+    ports:
+      - 4566:4566
+    volumes:
+      - ./objects/init-s3.py:/etc/localstack/init/ready.d/init-s3.py
+      - objects_data:/var/lib/localstack/data
+    networks:
+      - app
   db:
     image: mongo:7.0-jammy
     restart: always
@@ -10,39 +26,39 @@ services:
       - DB_PASSWORD
       - DB_NAME
     healthcheck:
-      test: mongosh --eval 'db.runCommand("ping").ok' db:${DB_PORT}/${DB_NAME} --quiet
+      test: mongosh --eval 'db.runCommand("ping").ok' localhost:27017/${DB_NAME} --quiet
       interval: 40s
       timeout: 10s
       retries: 3
       start_period: 30s
+    ports:
+      - 27017:27017
     volumes:
-      - ./data/database:/data/db
       - ./database/initdb.js:/docker-entrypoint-initdb.d/mongo-init.js:ro
     networks:
       - app
   cms:
     build:
       context: ./cms
-    image: ${REGISRTY}/cms
     restart: always
     environment:
-      - DB_NAME
-      - DB_USERNAME
-      - DB_PASSWORD
-      - DB_HOST=db
-      - DB_PORT
+      - DB_CONNECTION_STRING=mongodb://${DB_USERNAME}:${DB_PASSWORD}@db:27017/${DB_NAME}?authSource=${DB_NAME}
       - PORT=${CMS_PORT}
+      - NO_AWS=true
+      - S3_BUCKET
+      - S3_REGION
+      - AWS_ACCESS_KEY_ID
+      - AWS_SECRET_ACCESS_KEY
+      - OBJECTS_ENDPOINT=http://objects:4566
       - PAYLOAD_SECRET=${CMS_SECRET}
     healthcheck:
-      test: node /home/node/app/healthcheck.js
+      test: node /app/healthcheck.js
       interval: 20s
       timeout: 5s
-      start_period: 50s
-      retries: 3
+      start_period: 100s
+      retries: 10
     ports:
       - ${CMS_PORT}:${CMS_PORT}
-    volumes:
-      - ./data/cms:/home/node/app/media
     depends_on:
       db:
         condition: service_healthy
@@ -51,16 +67,16 @@ services:
   client:
     build:
       context: ./front
-    image: ${REGISRTY}/client
-    restart: always
+    restart: always 
     environment:
       - GRAPHQL_HOST=http://cms:${CMS_PORT}/api/graphql
-      - APP_DOMAIN=https://www.${APP_DOMAIN}
+      - APP_DOMAIN=https://${APP_DOMAIN}
+      - STATIC_PATH=https://cdn.${APP_DOMAIN}/
     depends_on:
       cms:
         condition: service_healthy
     networks:
-      app:
+      - app
   gateway:
     image: nginx
     restart: always
@@ -71,6 +87,8 @@ services:
       - APP_DOMAIN
       - CLIENT=client:4321
       - CMS=cms:${CMS_PORT}
+      - OBJECTS=objects:4566
+      - S3_BUCKET
       - CERTIFICATES_FOLDER
     volumes:
       - ./network/nginx.conf:/etc/nginx/templates/default.conf.template:ro 
@@ -80,6 +98,9 @@ services:
         condition: service_healthy
     networks:
       - app
+volumes:
+  db_data:
+  objects_data:
 
 networks:
   app:
