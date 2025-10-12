@@ -9,6 +9,7 @@ front/.astro
 
 /cms/media
 /cms/.DS_Store 
+/cms/.next
 
 **/node_modules/
 /.pnp
@@ -18,8 +19,9 @@ yarn-debug.log*
 yarn-error.log*
 
 /data/
+/objects/.venv
 
 *.tsbuildinfo
 
-network/certificates/*.crt
-network/certificates/*.key
+network/certificates/***
+!network/certificates/README.md
