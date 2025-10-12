@@ -1,39 +1,62 @@
-FROM node:20-slim AS base
+FROM node:22.20.0-alpine AS base
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 RUN corepack enable
 
-FROM base as builder
+FROM base AS deps
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
 
-WORKDIR /home/node/app
-COPY package*.json ./
+COPY package*.json pnpm-lock.yaml ./
+RUN pnpm i --frozen-lockfile
 
+FROM base AS production-deps
+
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+
+COPY package*.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile --prod
+
+FROM base AS builder
+WORKDIR /app
+
+ENV NEXT_TELEMETRY_DISABLED 1
+
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN pnpm install --frozen-lockfile
+
 RUN pnpm run build
 
-FROM base as runtime
+FROM production-deps AS runner
 
-ENV NODE_ENV=production
-ENV PAYLOAD_CONFIG_PATH=dist/payload.config.js
-ENV DB_NAME=portfolio
-ENV DB_USERNAME=
-ENV DB_PASSWORD=
-ENV DB_HOST=localhost
-ENV DB_PORT=27017
-ENV PORT=8080
+ENV NEXT_TELEMETRY_DISABLED 1
+ENV NODE_ENV production
+ENV DB_CONNECTION_STRING=
+ENV PORT=
 ENV PAYLOAD_SECRET=
+ENV S3_BUCKET=
+ENV S3_REGION=
+ENV AWS_ACCESS_KEY_ID=
+ENV AWS_SECRET_ACCESS_KEY=
+ENV USE_MINIO=
+ENV MINIO_ENDPOINT=
 
-WORKDIR /home/node/app
-COPY package*.json  ./
-COPY pnpm-lock.yaml ./
-COPY ./healthcheck.js ./
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
-RUN pnpm install --prod --frozen-lockfile
-COPY --from=builder /home/node/app/dist ./dist
-COPY --from=builder /home/node/app/build ./build
+RUN mkdir .next
+RUN chown nextjs:nodejs .next
+
+COPY --from=builder --chown=nextjs:nodejs /app/.next ./.next
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --chown=nextjs:nodejs ./healthcheck.js /app/healthcheck.js
+
+USER nextjs
 
 EXPOSE ${PORT}
 
-CMD ["node", "dist/server.js"]
+ENV PORT ${PORT}
+
+CMD ["pnpm", "start"]

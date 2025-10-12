@@ -1,74 +1,74 @@
-import { CollectionConfig } from "payload/types";
+import { CollectionConfig } from 'payload'
 
 const Education: CollectionConfig = {
-  slug: "education",
+  slug: 'education',
   admin: {
-    useAsTitle: "name",
+    useAsTitle: 'title',
   },
   access: {
     read: () => true,
   },
   fields: [
     {
-      name: "title",
-      type: "text",
+      name: 'title',
+      type: 'text',
     },
     {
-      name: "from",
-      type: "text",
+      name: 'from',
+      type: 'text',
     },
     {
-      name: "description",
-      type: "richText",
+      name: 'description',
+      type: 'richText',
     },
     {
-      name: "resume",
-      type: "text",
+      name: 'resume',
+      type: 'text',
     },
     {
-      name: "keywords",
-      type: "array",
+      name: 'keywords',
+      type: 'array',
       minRows: 1,
       fields: [
         {
-          name: "name",
-          type: "text",
+          name: 'name',
+          type: 'text',
         },
       ],
     },
     {
-      name: "start_date",
-      type: "date",
+      name: 'start_date',
+      type: 'date',
     },
     {
-      name: "end_date",
-      type: "date",
+      name: 'end_date',
+      type: 'date',
       required: false,
-      validate: (val: Date, { data }: { data: { start_date: Date } }) => {
-        if (val <= data.start_date)
-          return "End date should be after start date";
-        return true;
+      validate: (val, { data }) => {
+        const startDate = (data as { start_date?: Date })?.start_date;
+        if (val && startDate && val <= startDate) return 'End date should be after start date'
+        return true
       },
     },
     {
-      name: "type",
-      type: "select",
+      name: 'type',
+      type: 'select',
       options: [
         {
-          label: "Certificate",
-          value: "certificate",
+          label: 'Certificate',
+          value: 'certificate',
         },
         {
-          label: "Degree",
-          value: "degree",
+          label: 'Degree',
+          value: 'degree',
         },
         {
-          label: "Course",
-          value: "course",
+          label: 'Course',
+          value: 'course',
         },
       ],
     },
   ],
-};
+}
 
-export { Education };
+export { Education }

@@ -1,33 +1,41 @@
-import path from 'path'
-
-import { payloadCloud } from '@payloadcms/plugin-cloud'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
-import { viteBundler } from "@payloadcms/bundler-vite";
 import { slateEditor } from '@payloadcms/richtext-slate'
-import { buildConfig } from 'payload/config'
-import { DB_HOST, DB_NAME, DB_PASSWORD, DB_PORT, DB_USERNAME } from './config/env'
-import { Education, Images, Messagges, Proyects, Users, Experience } from './collections';
+import path from 'path'
+import { buildConfig } from 'payload'
+import { fileURLToPath } from 'url'
+import sharp from 'sharp'
+
+import { Education, Images, Messagges, Proyects, Users, Experience } from './collections'
+import { DB_CONNECTION_STRING, PAYLOAD_SECRET } from './config/env'
+import { s3Adapter } from './config/static'
+const filename = fileURLToPath(import.meta.url)
+const dirname = path.dirname(filename)
 
 export default buildConfig({
+  endpoints: [
+    {
+      path: '/ping',
+      method: 'get',
+      handler: () => new Response(JSON.stringify({ message: 'pong' }), { status: 200 }),
+    }
+  ],
   admin: {
     user: Users.slug,
-    bundler: viteBundler(),
-  },
-  editor: slateEditor({}),
-  collections: [Users, Messagges, Images, Proyects, Education, Experience ],
-  typescript: {
-    outputFile: path.resolve(__dirname, 'payload-types.ts'),
-  },
-  graphQL: {
-    schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
-  },
-  plugins: [payloadCloud()],
-  db: mongooseAdapter({
-    url: `mongodb://${DB_USERNAME}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
-  }),
-  upload: {
-    limits: {
-      fileSize: 2000000,
+    importMap: {
+      baseDir: path.resolve(dirname),
     },
   },
+  collections: [Users, Education, Images, Messagges, Proyects, Experience],
+  editor: slateEditor({}),
+  secret: PAYLOAD_SECRET,
+  typescript: {
+    outputFile: path.resolve(dirname, 'payload-types.ts'),
+  },
+  db: mongooseAdapter({
+    url: DB_CONNECTION_STRING,
+  }),
+  sharp,
+  plugins: [
+    s3Adapter,
+  ],
 })

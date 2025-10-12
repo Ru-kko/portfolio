@@ -1,39 +1,32 @@
-import { CollectionConfig } from "payload/types";
-
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+import { CollectionConfig } from 'payload'
 
 const Messagges: CollectionConfig = {
-  slug: "messages",
+  slug: 'messages',
   admin: {
-    useAsTitle: "name",
+    useAsTitle: 'email',
   },
   access: {
     create: () => true,
     read: (args) => {
-      if (args.req.user) return true;
-      return false;
-    }
+      if (args.req.user) return true
+      return false
+    },
   },
   fields: [
     {
       name: 'title',
-      type: 'text'
+      type: 'text',
     },
     {
       name: 'email',
-      type: 'text',
+      type: 'email',
       unique: false,
-      validate: (val: string) => {
-        if (emailRegex.test(val))
-          return true;
-        return `${val} is not a email`;
-      }
     },
     {
       name: 'content',
       type: 'textarea',
-    }
+    },
   ],
-};
+}
 
-export { Messagges };
+export { Messagges }

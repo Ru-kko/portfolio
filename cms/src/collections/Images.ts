@@ -1,37 +1,35 @@
-import { CollectionConfig } from "payload/types";
+import { CollectionConfig } from 'payload'
 
 const Images: CollectionConfig = {
-  slug: "images",
+  slug: 'images',
   admin: {
-    useAsTitle: "alt",
+    useAsTitle: 'alt',
   },
   access: {
     read: () => true,
   },
   upload: {
-    staticURL: "/static/img",
-    staticDir: "/media/img/",
     imageSizes: [
       {
-        name: "card",
+        name: 'card',
         height: 480,
-        position: "centre",
+        position: 'centre',
       },
       {
-        name: "thumbnail",
+        name: 'thumbnail',
         height: 900,
-        position: "centre",
+        position: 'centre',
       },
     ],
-    adminThumbnail: "thumbnail",
-    mimeTypes: ["image/*"],
+    adminThumbnail: 'thumbnail',
+    mimeTypes: ['image/*'],
   },
   fields: [
     {
-      name: "alt",
-      type: "text",
+      name: 'alt',
+      type: 'text',
     },
   ],
-};
+}
 
-export { Images };
+export { Images }

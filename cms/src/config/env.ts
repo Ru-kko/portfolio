@@ -1,23 +1,28 @@
-import dotenv from "dotenv";
+import dotenv from 'dotenv'
 
-dotenv.config();
+dotenv.config()
 
-const env = typeof window === "undefined" ? process.env : {};
+const env = typeof window === 'undefined' ? process.env : ({} as { [key: string]: string })
 
-const DB_NAME = env.DB_NAME;
-const DB_USERNAME = env.DB_USERNAME;
-const PORT = env.PORT;
-const PAYLOAD_SECRET = env.PAYLOAD_SECRET;
-const DB_PORT = env.DB_PORT;
-const DB_HOST = env.DB_HOST;
-const DB_PASSWORD = env.DB_PASSWORD;
+const PORT = env.PORT
+const PAYLOAD_SECRET = env.PAYLOAD_SECRET ?? ''
+const DB_CONNECTION_STRING = env.DB_CONNECTION_STRING ?? ''
+
+const NO_AWS = env.NO_AWS === 'true'
+const OBJECTS_ENDPOINT = env.OBJECTS_ENDPOINT ?? ''
+const S3_BUCKET = env.S3_BUCKET ?? ''
+const S3_REGION = env.S3_REGION ?? ''
+const AWS_ACCESS_KEY_ID = env.AWS_ACCESS_KEY_ID ?? ''
+const AWS_SECRET_ACCESS_KEY = env.AWS_SECRET_ACCESS_KEY ?? ''
 
 export {
-  DB_NAME,
-  DB_USERNAME,
-  DB_PASSWORD,
-  DB_HOST,
-  DB_PORT,
+  DB_CONNECTION_STRING,
   PORT,
   PAYLOAD_SECRET,
-};
+  S3_BUCKET,
+  S3_REGION,
+  AWS_ACCESS_KEY_ID,
+  AWS_SECRET_ACCESS_KEY,
+  NO_AWS,
+  OBJECTS_ENDPOINT,
+}

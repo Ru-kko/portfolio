@@ -4,7 +4,7 @@ const opt = {
 };
 
 try {
-  fetch(`http://${opt.host}:${opt.port}/ping`, { method: "GET" }).then(
+  fetch(`http://${opt.host}:${opt.port}/api/ping`, { method: "GET" }).then(
     (res) => {
       if (res.status === 200) {
         res.text().then(console.log);
