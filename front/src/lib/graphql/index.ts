@@ -4,6 +4,14 @@ import { ApolloClient, InMemoryCache } from "@apollo/client/index.js";
 export const client = new ApolloClient({
   uri: GRAPHQL_HOST,
   cache: new InMemoryCache(),
+  defaultOptions: {
+    watchQuery: {
+      fetchPolicy: "no-cache",
+    },
+    query: {
+      fetchPolicy: "no-cache",
+    },
+  }
 });
 
 export type QueryFunction<R, A = undefined> = (
