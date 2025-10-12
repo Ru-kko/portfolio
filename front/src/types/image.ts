@@ -1,6 +1,7 @@
 interface ImageBase {
   id: string;
   url: string;
+  filename: string;
 }
 
 interface Sizes {

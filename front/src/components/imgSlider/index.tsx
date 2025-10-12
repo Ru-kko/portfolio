@@ -10,7 +10,6 @@ interface Props {
 export function ImageSlider({ images, staticPath }: Props) {
   const [actual, setActual] = useState(0);
   const [modalState, setModal] = useState(false);
-
   const moveRight = () => setActual(getIndex(actual + 1));
   const moveLeft = () => setActual(getIndex(actual - 1));
 
@@ -27,14 +26,15 @@ export function ImageSlider({ images, staticPath }: Props) {
         }}
       >
         <button onClick={moveLeft}>{"<"}</button>
-        {
-          modalState ?
-            <img
-              src={staticPath + images[actual]?.sizes.thumbnail.url}
-              alt={images[actual]?.alt}
-            /> :
-            null
-        }
+        {modalState ? (
+          <img
+            src={
+              staticPath +
+              (images[actual]?.sizes.thumbnail.filename ?? images[actual]?.filename)
+            }
+            alt={images[actual]?.alt}
+          />
+        ) : null}
         <button onClick={moveRight}>{">"}</button>
       </dialog>
       <article className={styles.container}>
@@ -42,19 +42,34 @@ export function ImageSlider({ images, staticPath }: Props) {
           <div className={styles.slider}>
             <div className={styles.img_l}>
               <img
-                src={staticPath + images[getIndex(actual - 1)]?.sizes.card.url}
+                src={
+                  staticPath +
+                  (images[getIndex(actual - 1)]?.sizes.card.filename ??
+                    images[getIndex(actual - 1)]?.sizes.thumbnail.filename ??
+                    images[getIndex(actual - 1)]?.filename)
+                }
                 alt={images[getIndex(actual - 1)]?.alt}
               />
             </div>
             <button className={styles.img_c} onClick={() => setModal(true)}>
               <img
-                src={staticPath + images[actual]?.sizes.card.url}
+                src={
+                  staticPath +
+                  (images[actual]?.sizes.card.filename ??
+                    images[actual]?.sizes.thumbnail.filename ??
+                    images[actual]?.filename)
+                }
                 alt={images[actual]?.alt}
               />
             </button>
             <div className={styles.img_r}>
               <img
-                src={staticPath + images[getIndex(actual + 1)]?.sizes.card.url}
+                src={
+                  staticPath +
+                  (images[getIndex(actual + 1)]?.sizes.card.filename ??
+                    images[getIndex(actual + 1)]?.sizes.thumbnail.filename ??
+                    images[getIndex(actual + 1)]?.filename)
+                }
                 alt={images[getIndex(actual + 1)]?.alt}
               />
             </div>

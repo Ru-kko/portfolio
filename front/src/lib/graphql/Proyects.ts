@@ -32,12 +32,15 @@ const GET_FULL_PROYECT = gql(`
       ScreenShots {
         alt
         url
+        filename
         sizes {
           card {
             url
+            filename
           }
           thumbnail {
             url
+            filename
           }
         }
       }
